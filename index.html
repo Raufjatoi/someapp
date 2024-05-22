@@ -10,14 +10,9 @@
             margin: 0;
             padding: 0;
             background-color: #f0f0f0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
         }
 
         .container {
-            max-width: 800px;
             padding: 20px;
             background-color: #f9f9f9;
             border-radius: 10px;
@@ -54,18 +49,18 @@
 
         .blocks {
             display: flex;
-            justify-content: space-between;
             flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
             margin-top: 20px;
         }
 
         .block {
-            width: calc(50% - 10px);
+            flex: 0 0 calc(50% - 10px);
             height: 150px;
             background-color: #333;
             border-radius: 10px;
             transition: all 0.3s ease;
-            margin-bottom: 20px;
             cursor: pointer;
             position: relative;
             overflow: hidden;
@@ -91,7 +86,7 @@
 
         @media (max-width: 600px) {
             .block {
-                width: calc(100% - 10px);
+                flex-basis: calc(50% - 10px);
             }
         }
     </style>
