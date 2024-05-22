@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Weird Sound Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(to right, #ff7e5f, #feb47b);
+            flex-direction: column;
+            color:  rgb(14, 12, 12);
+        }
+
+        .app-container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        #soundButton, #downloadButton {
+            padding: 10px 20px;
+            background: #feb47b;
+            border: none;
+            color: rgb(14, 12, 12);
+            cursor: pointer;
+            margin: 10px;
+        }
+
+        .sound-container {
+            margin-top: 20px;
+        }
+
+        .sound-container audio {
+            width: 100%;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <h1>Random Weird Sound Generator</h1>
+        <button id="soundButton">Get a Weird Sound</button>
+        <button id="downloadButton" style="display:none;">Download Sound</button>
+        <div class="sound-container" id="soundContainer"></div>
+    </div>
+
+    <script>
+        const sounds = [
+            {
+                name: 'Alien Sound',
+                url: 'https://www.freesoundeffects.com/free-track/alien-sound-466829/',
+                src: 'https://www.freesoundeffects.com/static/sounds/466829.mp3'
+            },
+            {
+                name: 'Bizarre Sound',
+                url: 'https://www.freesoundeffects.com/free-track/bizarre-sound-466830/',
+                src: 'https://www.freesoundeffects.com/static/sounds/466830.mp3'
+            },
+            {
+                name: 'Sci-Fi Noise',
+                url: 'https://www.freesoundeffects.com/free-track/sci-fi-noise-466831/',
+                src: 'https://www.freesoundeffects.com/static/sounds/466831.mp3'
+            },
+            {
+                name: 'Spooky Noise',
+                url: 'https://www.freesoundeffects.com/free-track/spooky-noise-466832/',
+                src: 'https://www.freesoundeffects.com/static/sounds/466832.mp3'
+            }
+        ];
+
+        document.getElementById('soundButton').addEventListener('click', getSound);
+        document.getElementById('downloadButton').addEventListener('click', downloadSound);
+
+        function getSound() {
+            try {
+                const randomSound = sounds[Math.floor(Math.random() * sounds.length)];
+
+                const soundContainer = document.getElementById('soundContainer');
+                soundContainer.innerHTML = `
+                    <h2>${randomSound.name}</h2>
+                    <audio controls id="soundPlayer">
+                        <source src="${randomSound.src}" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
+                `;
+                document.getElementById('downloadButton').style.display = 'inline';
+            } catch (error) {
+                document.getElementById('soundContainer').innerText = 'Error fetching sound!';
+                document.getElementById('downloadButton').style.display = 'none';
+            }
+        }
+
+        function downloadSound() {
+            const soundPlayer = document.getElementById('soundPlayer');
+            const audioUrl = soundPlayer.querySelector('source').src;
+            const link = document.createElement('a');
+            link.href = audioUrl;
+            link.download = 'weird-sound.mp3';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    </script>
+</body>
+</html>

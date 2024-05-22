@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Code Snippet Generator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/default.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(to right, #9cecfb, #65c7f7);
+            flex-direction: column;
+            color: #333;
+        }
+
+        .app-container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        #codeButton, #downloadButton {
+            padding: 10px 20px;
+            background: #65c7f7;
+            border: none;
+            color: white;
+            cursor: pointer;
+            margin: 10px;
+        }
+
+        #codeContainer {
+            margin-top: 20px;
+        }
+
+        pre {
+            margin: 0;
+            padding: 20px;
+            border-radius: 10px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <h1>Random Code Snippet Generator</h1>
+        <button id="codeButton">Get a Code Snippet</button>
+        <button id="downloadButton" style="display:none;">Download Code</button>
+        <div id="codeContainer"></div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></script>
+    <script>
+        document.getElementById('codeButton').addEventListener('click', getCode);
+        document.getElementById('downloadButton').addEventListener('click', downloadCode);
+
+        const codeSnippets = [
+    {
+        language: 'JavaScript',
+        snippet: `console.log("Hello, World!");`
+    },
+    {
+        language: 'Python',
+        snippet: `print("Hello, World!")`
+    },
+    {
+        language: 'Java',
+        snippet: `public class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+    }
+}`
+    },
+    {
+        language: 'C',
+        snippet: `#include <stdio.h>
+int main() {
+    printf("Hello, World!\\n");
+    return 0;
+}`
+    },
+    {
+        language: 'C++',
+        snippet: `#include <iostream>
+int main() {
+    std::cout << "Hello, World!" << std::endl;
+    return 0;
+}`
+    },
+    {
+        language: 'C#',
+        snippet: `using System;
+class Program {
+    static void Main(string[] args) {
+        Console.WriteLine("Hello, World!");
+    }
+}`
+    },
+    {
+        language: 'PHP',
+        snippet: `<?php
+echo "Hello, World!";
+?>`
+    },
+    {
+        language: 'Ruby',
+        snippet: `puts "Hello, World!"`
+    },
+    {
+        language: 'Swift',
+        snippet: `print("Hello, World!")`
+    },
+    {
+        language: 'Go',
+        snippet: `package main
+import "fmt"
+func main() {
+    fmt.Println("Hello, World!")
+}`
+    },
+    {
+        language: 'Rust',
+        snippet: `fn main() {
+    println!("Hello, World!");
+}`
+    },
+    {
+        language: 'Kotlin',
+        snippet: `fun main() {
+    println("Hello, World!")
+}`
+    },
+    {
+        language: 'Scala',
+        snippet: `object HelloWorld extends App {
+    println("Hello, World!")
+}`
+    },
+    {
+        language: 'TypeScript',
+        snippet: `console.log("Hello, World!");`
+    },
+    {
+        language: 'Lua',
+        snippet: `print("Hello, World!")`
+    },
+    {
+        language: 'Haskell',
+        snippet: `main = putStrLn "Hello, World!"`
+    },
+    {
+        language: 'Perl',
+        snippet: `print "Hello, World!\\n";`
+    },
+    {
+        language: 'Bash',
+        snippet: `echo "Hello, World!"`
+    },
+    {
+        language: 'Assembly',
+        snippet: `section .data
+    msg db 'Hello, World!', 0xa
+    len equ $ - msg
+section .text
+    global _start
+_start:
+    mov eax, 4
+    mov ebx, 1
+    mov ecx, msg
+    mov edx, len
+    int 0x80
+    mov eax, 1
+    xor ebx, ebx
+    int 0x80`
+    },
+    {
+        language: 'SQL',
+        snippet: `SELECT 'Hello, World!' AS greeting;`
+    },
+    {
+        language: 'Binary',
+        snippet: `01001000 01100101 01101100 01101100 01101111 00101100 00100000 01010111 01101111 01110010 01101100 01100100 00100001`
+    },
+    {
+        language: 'Hexadecimal',
+        snippet: `48 65 6C 6C 6F 2C 20 57 6F 72 6C 64 21`
+    },
+    {
+        language: 'JavaScript (ES6)',
+        snippet: `const greeting = "Hello, World!";
+console.log(greeting);`
+    },
+    {
+        language: 'Python (3.x)',
+        snippet: `greeting = "Hello, World!"
+print(greeting)`
+    },
+    {
+        language: 'Java (With Lambda)',
+        snippet: `import java.util.function.Supplier;
+public class HelloWorld {
+    public static void main(String[] args) {
+        Supplier<String> supplier = () -> "Hello, World!";
+        System.out.println(supplier.get());
+    }
+}`
+    },
+    {
+        language: 'C++ (Modern)',
+        snippet: `#include <iostream>
+using namespace std;
+int main() {
+    cout << "Hello, World!" << endl;
+    return 0;
+}`
+    },
+    {
+        language: 'C# (.NET Core)',
+        snippet: `using System;
+class Program {
+    static void Main(string[] args) {
+        var greeting = "Hello, World!";
+        Console.WriteLine(greeting);
+    }
+}`
+    },
+    {
+        language: 'PHP (7.x)',
+        snippet: `<?php
+$greeting = "Hello, World!";
+echo $greeting;
+?>`
+    },
+    {
+        language: 'Ruby (Modern)',
+        snippet: `greeting = "Hello, World!"
+puts greeting`
+    },
+    {
+        language: 'Swift (Modern)',
+        snippet: `let greeting = "Hello, World!"
+print(greeting)`
+    },
+    {
+        language: 'Go (With Goroutine)',
+        snippet: `package main
+import (
+    "fmt"
+)
+func main() {
+    go func() {
+        fmt.Println("Hello, World!")
+    }()
+    select {}
+}`
+    },
+    {
+        language: 'Rust (Safe)',
+        snippet: `fn main() {
+    let greeting = "Hello, World!";
+    println!("{}", greeting);
+}`
+    },
+    {
+        language: 'Kotlin (With Extension Function)',
+        snippet: `fun main() {
+    val greeting = "Hello, World!"
+    println(greeting)
+}`
+    },
+    {
+        language: 'Scala (Functional)',
+        snippet: `object HelloWorld extends App {
+    val greeting = "Hello, World!"
+    println(greeting)
+}`
+    },
+    {
+        language: 'TypeScript (Modern)',
+        snippet: `const greeting: string = "Hello, World!";
+console.log(greeting);`
+    },
+    {
+        language: 'Lua (With Local Variable)',
+        snippet: `local greeting = "Hello, World!"
+print(greeting)`
+    },
+    {
+        language: 'Haskell (Functional)',
+        snippet: `main :: IO ()
+main = putStrLn "Hello, World!"`
+    },
+    {
+        language: 'Perl (Modern)',
+        snippet: `my $greeting = "Hello, World!";
+print "$greeting\n";`
+    },
+    {
+        language: 'Bash (With Variable)',
+        snippet: `greeting="Hello, World!"
+echo "$greeting"`
+    },
+    {
+        language: 'SQL (Modern)',
+        snippet: `SELECT 'Hello, World!' AS greeting;`
+    },
+    {
+        language: 'Binary (8-bit ASCII)',
+        snippet: `01001000 01100101 01101100 01101100 01101111 00101100 00100000 01010111 01101111 01110010 01101100 01100100 00100001`
+    },
+    {
+        language: 'Hexadecimal (ASCII)',
+        snippet: `48 65 6C 6C 6F 2C 20 57 6F 72 6C 64 21`
+    }
+    // Add more languages and snippets as needed
+];
+
+
+        function getCode() {
+            try {
+                const randomIndex = Math.floor(Math.random() * codeSnippets.length);
+                const { language, snippet } = codeSnippets[randomIndex];
+
+                const codeContainer = document.getElementById('codeContainer');
+                codeContainer.innerHTML = `
+                    <h2>Language: ${language}</h2>
+                    <pre><code>${snippet}</code></pre>
+                `;
+                document.getElementById('downloadButton').style.display = 'inline';
+
+                // Highlight code syntax
+                hljs.highlightAll();
+            } catch (error) {
+                document.getElementById('codeContainer').innerText = 'Error fetching code snippet!';
+                document.getElementById('downloadButton').style.display = 'none';
+            }
+        }
+
+        function downloadCode() {
+            const codeContainer = document.getElementById('codeContainer');
+            const codeSnippet = codeContainer.querySelector('code').innerText;
+            const language = codeContainer.querySelector('h2').innerText.split(': ')[1];
+            const blob = new Blob([codeSnippet], { type: 'text/plain' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = `code.${language.toLowerCase()}`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    </script>
+</body>
+</html>

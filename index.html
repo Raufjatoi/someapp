@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random 😁</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            max-width: 800px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin: 0;
+        }
+
+        .profile-pic {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .profile-pic img {
+            width: 100%;
+            height: auto;
+        }
+
+        .profile-pic:hover {
+            transform: scale(1.2);
+        }
+
+        .blocks {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .block {
+            width: calc(50% - 10px);
+            height: 150px;
+            background-color: #333;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .block img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .block:hover img {
+            opacity: 0.8;
+        }
+
+        .block:hover {
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 600px) {
+            .block {
+                width: calc(100% - 10px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="profile-pic">
+                <a href="#">
+                    <img src="d:\Pictures\rp\e2a88a93-44c0-49c6-8673-9943f5562a3e.jpg" alt="Profile Pic">
+                </a>
+            </div>
+            <h1>Random 😁</h1>
+        </div>
+        <div class="blocks">
+            <a href="random.html" class="block">
+                <img src="r1.png" alt="Image 1">
+            </a>
+            <a href="memes.html" class="block">
+                <img src="r2.png" alt="Image 2">
+            </a>
+            <a href="code.html" class="block">
+                <img src="r3.png" alt="Image 3">
+            </a>
+            <a href="sounds.html" class="block">
+                <img src="r4.png" alt="Image 4">
+            </a>
+        </div>
+    </div>
+</body>
+</html>
